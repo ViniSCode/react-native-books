@@ -5,7 +5,13 @@ import { FlatList, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TextIn
 import { Books } from '../components/Books';
 export default function Home () {
   const [query, setQuery] = useState("");
-  const bookList = ["Harry Potter", "The Witcher", "Sherlock", "Lord of the Rings"]
+  const bookList = [
+    { name: "Harry Potter", id: 1 },
+    { name: "The Witcher", id: 2 },
+    { name: "Sherlock", id: 3 },
+    { name: "Lord of the Rings", id: 4 }
+  ];
+
   StatusBar.setHidden(true, 'fade');
 
   return (
@@ -30,10 +36,10 @@ export default function Home () {
             data={bookList}
             renderItem={({item}) => (
               <View style={[styles.bookList]}>
-                <Text style={{color: '#ABABB7', fontFamily: 'PR', fontSize: 12}}>{item}</Text>
+                <Text style={{color: '#ABABB7', fontFamily: 'PR', fontSize: 12}}>{item.name}</Text>
               </View>
             )}
-            keyExtractor={(item) => item.indexOf}
+            keyExtractor={(item) => item.id}
             horizontal={true}
             showsVerticalScrollIndicator={false}
           />
@@ -42,11 +48,26 @@ export default function Home () {
         {/* Popular Books */}
         <View>
           <Text style={{marginTop: 38, fontSize: 22, fontFamily: 'PM', color: '#35304B'}}>Popular Books</Text>
-
           <View style={{display: 'flex', gap: 10, marginTop: 20}}>
-            <Books />
-            <Books />
-            <Books />
+            <FlatList 
+              showsVerticalScrollIndicator={false}
+              style={{paddingVertical: 20}}
+              horizontal={true}
+              data={bookList}
+              keyExtractor={(item) => item.id}
+              renderItem={() => (
+                <View style={{marginRight: 15}}>
+                  <Books />
+                </View>
+              )}
+            />
+          </View>
+        </View>
+
+        {/* Recommended Books */}
+        <View>
+          <Text style={{marginTop: 38, fontSize: 22, fontFamily: 'PM', color: '#35304B'}}>Popular Books</Text>
+          <View style={{display: 'flex', gap: 10, marginTop: 20}}>
             <Books />
             <Books />
             <Books />
