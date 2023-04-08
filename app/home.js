@@ -1,9 +1,26 @@
 import { Feather } from '@expo/vector-icons';
+import axios from 'axios';
 import { Stack } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FlatList, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TextInput, View } from "react-native";
 import { Books } from '../components/Books';
+import { BooksList } from '../components/BooksList';
+
 export default function Home () {
+  const [books, setBooks] = useState([]);
+  const bookTitle = 'Harry Potter';
+
+  useEffect(() => {
+    axios.get(`https://openlibrary.org/search.json?q=Harry+Potter&limit=10`)
+      .then(response => {
+        setBooks(response.data.docs);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, []);
+
+  
   const [query, setQuery] = useState("");
   const bookList = [
     { name: "Harry Potter", id: 1 },
@@ -53,11 +70,16 @@ export default function Home () {
               showsVerticalScrollIndicator={false}
               style={{paddingVertical: 20}}
               horizontal={true}
-              data={bookList}
-              keyExtractor={(item) => item.id}
-              renderItem={() => (
+              data={books}
+              keyExtractor={(item) => item.key}
+              renderItem={({item}) => (
                 <View style={{marginRight: 15}}>
-                  <Books />
+                  <BooksList
+                    image={item.cover_i}
+                    title={item.title}
+                    author={item.author_name} 
+                    category={item.subject}
+                  />
                 </View>
               )}
             />
@@ -67,13 +89,18 @@ export default function Home () {
         {/* Recommended Books */}
         <View>
           <Text style={{marginTop: 38, fontSize: 22, fontFamily: 'PM', color: '#35304B'}}>Popular Books</Text>
-          <View style={{display: 'flex', gap: 10, marginTop: 20}}>
-            <Books />
-            <Books />
-            <Books />
-            <Books />
-            <Books />
-          </View>
+          {books && (
+            books.map((book) => (
+              <View style={{marginTop: 20}} key={book.key}>
+                <Books
+                  image={book.cover_i}
+                  title={book.title}
+                  author={book.author_name} 
+                  category={book.subject}
+                />
+              </View>
+            ))
+          )}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -117,7 +144,7 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     marginTop: 38,
-    paddingVertical: 10,
+    paddingVertical: 20,
     marginHorizontal: 'auto',
   },
   bookList: {

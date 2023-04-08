@@ -1,7 +1,6 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 import bookImage from '../assets/book.png';
-export function Books ({category, title, author, image}) {
-  console.log(image)
+export function BooksList ({category, title, author, image}) {
 
   return (
     <View style={styles.container}>
@@ -25,7 +24,7 @@ const styles = StyleSheet.create({
     display: 'flex', 
     flexDirection: 'row', 
     gap: 10, 
-    width: '100%', 
+    width: 300, 
     overflow: 'hidden',
     backgroundColor: '#F3F5F9',
     borderRadius: 10,
