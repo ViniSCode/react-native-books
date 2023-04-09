@@ -11,7 +11,7 @@ export default function Home () {
   const bookTitle = 'Harry Potter';
 
   useEffect(() => {
-    axios.get(`https://openlibrary.org/search.json?q=Harry+Potter&limit=10`)
+    axios.get(`https://openlibrary.org/search.json?q=fiction&limit=10&sort=editions`)
       .then(response => {
         setBooks(response.data.docs);
       })
@@ -19,7 +19,6 @@ export default function Home () {
         console.log(error);
       });
   }, []);
-
   
   const [query, setQuery] = useState("");
   const bookList = [
@@ -78,7 +77,7 @@ export default function Home () {
                     image={item.cover_i}
                     title={item.title}
                     author={item.author_name} 
-                    category={item.subject}
+                    category={item.subject_facet}
                   />
                 </View>
               )}
@@ -96,7 +95,7 @@ export default function Home () {
                   image={book.cover_i}
                   title={book.title}
                   author={book.author_name} 
-                  category={book.subject}
+                  category={book.subject_facet}
                 />
               </View>
             ))
