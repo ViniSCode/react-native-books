@@ -10,9 +10,9 @@ export function BooksList ({category, title, author, image}) {
       </View>
       <View style={styles.textContainer}>
         {title && <Text style={styles.title} numberOfLines={1}>{title}</Text>}
-        <Text style={styles.author}>J. R. R. Tolkien</Text>
+        {author && <Text style={styles.author}  numberOfLines={1}>{author.length > 1 ? author[0] + ' + ' + author.length + ' authors' : author[0]}</Text>}
         <View style={styles.categories}>
-            {category && <View style={styles.category}><Text style={styles.categoryText}>{category[0]}</Text></View>}
+            {category && <View style={styles.category}><Text style={styles.categoryText}  numberOfLines={1}>{category[0]}</Text></View>}
         </View>
       </View>
     </View>
@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     backgroundColor: '#F3F5F9',
+    width: 250,
     maxWidth: 300,
     borderRadius: 10,
     padding: 10,
@@ -33,7 +34,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     boxShadow: '4px 4px 4px rgba(0, 0, 0, 0.1)',
-    overflow: 'hidden',
   },
   imageContainer: {
     width: 70,

@@ -2,8 +2,6 @@ import { Image, StyleSheet, Text, View } from "react-native";
 import bookImage from '../assets/book.png';
 
 export function Books ({category, title, author, image}) {
-  console.log(category)
-
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
@@ -11,9 +9,9 @@ export function Books ({category, title, author, image}) {
       </View>
       <View style={styles.textContainer}>
         {title && <Text style={styles.title} numberOfLines={1}>{title}</Text>}
-        {author && <Text style={styles.author}>{author.length > 1 ? author[0] + ' + ' + author.length + ' authors' : author[0]}</Text>}
+        {author && <Text style={styles.author}  numberOfLines={1}>{author.length > 1 ? author[0] + ' + ' + author.length + ' authors' : author[0]}</Text>}
         <View style={styles.categories}>
-            {category && <View style={styles.category}><Text style={styles.categoryText}>{category[0]}</Text></View>}
+            {category && <View style={styles.category}><Text style={styles.categoryText}  numberOfLines={1}>{category[0]}</Text></View>}
         </View>
       </View>
     </View>
