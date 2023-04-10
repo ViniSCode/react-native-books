@@ -59,8 +59,9 @@ const styles = StyleSheet.create({
     color: '#717171',
   },
   categories: {
-    flexDirection: 'row',
     marginTop: 10,
+    width: 'fit-content',
+
   },
   category: {
     backgroundColor: '#D6D9E6',
